@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hair Color Catalog</title>
+    <link rel="icon" href="favi.png" type="image/png">
+    <title>옛날바람 헤어카탈로그</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
+
         header {
             position: fixed;
             top: 0;
@@ -18,9 +20,10 @@
             background-color: white;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             z-index: 1000;
-            transition: top 0.3s ease-in-out;
             padding: 10px 20px;
+            height: 40px;
         }
+
         .control-panel {
             display: flex;
             align-items: center;
@@ -64,72 +67,90 @@
             margin-top: 10px;
             font-size: 14px;
         }
+
+        .modal {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }   
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 16px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        #modalImages {
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 15px; 
+        }
+
+        #modalImages div {
+            text-align: center; 
+        }
+
+        #modalImages img {
+            width: 100px;
+            height: 150px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .color-name {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .logo {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            z-index: -1;
+            opacity: 0.6;
+            max-width: 80vw;
+        }
+
+        .main {
+            position: fixed;
+            height: 40px;
+            border-radius: 10px;
+            left: 20px;
+        }
     </style>
-<style>
-    .modal {
-        display: none; 
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
-        z-index: 2000;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .modal-content {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        max-width: 80%;
-        max-height: 80%;
-        overflow-y: auto;
-        position: relative;
-    }
-
-    .close-button {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 16px;
-        background: red;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        padding: 5px 10px;
-    }
-
-    #modalImages {
-        display: flex;
-        flex-wrap: wrap; 
-        justify-content: center; 
-        gap: 15px; 
-    }
-
-    #modalImages div {
-        text-align: center; 
-    }
-
-    #modalImages img {
-        width: 100px;
-        height: 150px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .color-name {
-        margin-top: 5px;
-        font-size: 14px;
-        color: #333;
-    }
-</style>
 </head>
 <body>
 
     <header id="header">
+        <a href="https://discord.gg/classicbaram" target="_blank" onclick="event.stopPropagation();">
+            <img src="favi.png" class="main">
+        </a>
         <div class="control-panel">
             <button id="prevButton">Prev</button>
             <select id="colorDropdown">
@@ -165,7 +186,7 @@
             <div id="modalImages"></div>
         </div>
     </div>
-
+    <img src="logo.png" class="logo">
     <script>
         const dropdown = document.getElementById('colorDropdown');
         const imageGrid = document.getElementById('imageGrid');
