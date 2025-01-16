@@ -372,6 +372,16 @@ a.glow-border img {
                 modal.style.display = 'flex';
             }
         });
+
+        const expirationDate = new Date('2025-01-31'); // 예: 2025년 1월 31일까지 동작
+
+        const hasSeenAlert = localStorage.getItem('hasSeenAlert');
+        const currentDate = new Date();
+
+        if (!hasSeenAlert && currentDate <= expirationDate) {
+            alert('옛바와 클바의 염색명칭이 다릅니다!! 주의하세요!!');
+            localStorage.setItem('hasSeenAlert', 'true');
+        }
     </script>
     <!-- 옛날바람 하러오세요~~ 옛창섭 화이팅!! -->
 </body>
