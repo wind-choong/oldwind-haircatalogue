@@ -382,6 +382,40 @@ a.glow-border img {
             alert('옛바와 클바의 염색명칭이 다릅니다!! 주의하세요!!');
             localStorage.setItem('hasSeenAlert', 'true');
         }
+
+        const hasDismissedMessage = localStorage.getItem('hasDismissedMessage');
+        if (!hasDismissedMessage && currentDate <= expirationDate) {
+            const messageWindow = document.createElement('div');
+            messageWindow.style.position = 'fixed';
+            messageWindow.style.top = '20px';
+            messageWindow.style.right = '20px';
+            messageWindow.style.padding = '15px';
+            messageWindow.style.backgroundColor = '#f9f9f9';
+            messageWindow.style.border = '1px solid #ccc';
+            messageWindow.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            messageWindow.style.zIndex = '1000';
+
+            messageWindow.innerHTML = `
+                <div>
+                    <p>옛바와 클바의 염색 명칭이 다르므로 클바분들은 유의 부탁드립니다!!</p>
+                    <label>
+                        <input type="checkbox" id="hideMessageCheckbox"> 이 메시지를 더 이상 표시하지 않음
+                    </label>
+                    <button id="closeMessageButton" style="margin-left: 10px;">닫기</button>
+                </div>
+            `;
+
+            document.body.appendChild(messageWindow);
+
+            // 닫기 버튼 동작
+            document.getElementById('closeMessageButton').addEventListener('click', () => {
+                const checkbox = document.getElementById('hideMessageCheckbox');
+                if (checkbox.checked) {
+                    localStorage.setItem('hasDismissedMessage', 'true');
+                }
+                messageWindow.remove();
+            });
+        }
     </script>
     <!-- 옛날바람 하러오세요~~ 옛창섭 화이팅!! -->
 </body>
