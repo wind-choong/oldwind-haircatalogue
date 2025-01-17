@@ -37,7 +37,7 @@
             box-shadow: 0 0 10px #000;
         }
 
-        .visitor-counter {
+        .counterContainer {
             position: fixed;
             transform: translate(-50%, -50%);
             bottom: 0;
@@ -46,8 +46,15 @@
             font-size: 1em;
         }
 
-        .visitor-counter img {
-            width: 300px;
+        .counter {
+        display: flex;
+        gap: 0;
+        }
+
+        .counter img {
+            width: 100%;
+            max-width: 30px;
+            min-width: 10px;
         }
 
         .marquee-container {
@@ -74,6 +81,8 @@
                 transform: translateX(-100%);
             }
         }
+
+
     </style>
 </head>
 <body>
@@ -86,8 +95,41 @@
     </div>
 
     <a href="main.html"><h2>ENTER</h2></a>
-    <div class="visitor-counter">
-        <img src="digit.png">
-    </div>
+    <div class="counterContainer"><div id="counter" class="counter"></div></div>
+    
 </body>
+<script>
+    const INITIAL_COUNT = 13578;
+    const LOCAL_STORAGE_KEY = 'visitorCount';
+
+    function incrementVisitorCount() {
+      let currentCount = localStorage.getItem(LOCAL_STORAGE_KEY);
+
+      if (!currentCount) {
+        currentCount = INITIAL_COUNT;
+      } else {
+        currentCount = parseInt(currentCount, 10) + 1;
+      }
+
+      localStorage.setItem(LOCAL_STORAGE_KEY, currentCount);
+      return currentCount;
+    }
+
+    function updateCounterDisplay(count) {
+      const counterDiv = document.getElementById('counter');
+      counterDiv.innerHTML = '';
+
+      const countStr = count.toString().padStart(10, '0');
+      for (let digit of countStr) {
+        const img = document.createElement('img');
+        img.src = `counter/${digit}.png`;
+        img.alt = digit;
+        counterDiv.appendChild(img);
+      }
+    }
+
+    // 실행
+    const updatedCount = incrementVisitorCount();
+    updateCounterDisplay(updatedCount);
+  </script>
 </html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNG Splitter and Zipper</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<body>
+    <h1>Drag and Drop PNG File</h1>
+    <div id="drop-zone" style="width: 300px; height: 200px; border: 2px dashed #ccc; display: flex; align-items: center; justify-content: center;">
+        Drop your PNG file here
+    </div>
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = 'blue';
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.borderColor = '#ccc';
+        });
+
+        dropZone.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = '#ccc';
+
+            const file = e.dataTransfer.files[0];
+            if (!file || !file.type.startsWith('image/png')) {
+                alert('Please drop a valid PNG file.');
+                return;
+            }
+
+            const image = new Image();
+            const reader = new FileReader();
+
+            reader.onload = (event) => {
+                image.src = event.target.result;
+            };
+
+            reader.readAsDataURL(file);
+
+            image.onload = () => {
+                if (image.width !== 600) {
+                    alert('The image must have a width of 600 pixels.');
+                    return;
+                }
+
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const zip = new JSZip();
+
+                canvas.width = 60;
+                canvas.height = image.height;
+
+                for (let i = 0; i < 10; i++) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(image, i * 60, 0, 60, image.height, 0, 0, 60, image.height);
+
+                    canvas.toBlob((blob) => {
+                        zip.file(`${i}.png`, blob);
+
+                        if (i === 9) {
+                            zip.generateAsync({ type: 'blob' }).then((zipFile) => {
+                                saveAs(zipFile, 'split-images.zip');
+                            });
+                        }
+                    }, 'image/png');
+                }
+            };
+        });
+    </script>
+</body>
+</html>
