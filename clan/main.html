@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>옛날바람 생거진천 문파</title>
+    <style>
+        * {
+            cursor: url('cursor.png'), auto; 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            background: url('https://www.transparenttextures.com/patterns/old-mathematics.png'); 
+            font-family: 'Gulim', '굴림', 'Arial', 'Helvetica', sans-serif;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background-color: #444;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            background-color: #f4f4f4;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" onclick="changeContent('introduce.html')">문파소개</a>
+        <a href="#" onclick="changeContent('news.html')">문파소식</a>
+        <a href="#" onclick="changeContent('what.html')">생거진천</a>
+        <a href="#" onclick="changeContent('screenshot.html')">스크린샷</a>
+        <a href="#" onclick="changeContent('subscribe.html')">가입문의</a>
+    </nav>
+    <main>
+        <iframe id="contentFrame" src="introduce.html"></iframe>
+    </main>
+    <script>
+        function changeContent(page) {
+            document.getElementById('contentFrame').src = page;
+        }
+    </script>
+</body>
+</html>
