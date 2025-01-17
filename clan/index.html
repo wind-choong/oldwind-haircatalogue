@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>옛날바람 생거진천 문파 홈페이지</title>
+    <title>옛날바람 생거진천 문파 홈페이지 대문</title>
     <style>
         * {
             cursor: url('cursor.gif'), auto; 
@@ -19,17 +19,19 @@
         }
 
         h1 {
-            font-size: 3em;
+            font-size: 2.5em;
             margin-top: 50px;
         }
 
         .image-container {
-            margin-top: 10%;
-            margin-bottom: 5%;
+            margin: 10% auto 0 auto; /* 컨테이너를 수평 중앙 정렬 */
+            overflow: hidden;
+            text-align: center; /* 이미지와 텍스트 중앙 정렬 */
+            max-width: 70%;
         }
 
         .image-container img {
-            max-width: 80%;
+            max-width: 100%;
             height: auto;
             border: 5px solid #ffcc00;
             box-shadow: 0 0 10px #000;
@@ -48,13 +50,41 @@
             width: 300px;
         }
 
+        .marquee-container {
+            width: auto;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .marquee {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            font-size: 1.5em;
+            animation: marquee 7s linear infinite;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>옛날바람 생거진천 문파</h1>
+    <h1>옛날바람 生居鎭川 門派</h1>
     <div class="image-container">
         <img src="main.png" alt="대문 이미지">
+        <div class="marquee-container">
+            <div class="marquee">생거진천 문파 홈페이지에 오신 모든 여러분을 진심으로 환영합니다.</div>
+        </div>
     </div>
+
     <a href="main.html"><h2>ENTER</h2></a>
     <div class="visitor-counter">
         <img src="digit.png">
